@@ -134,12 +134,16 @@ function initServiceScrollEffect() {
   );
 }
 
-window.addEventListener("resize", () => {
-  ScrollTrigger.refresh();
-});
-
 // Initialize both functionalities
 document.addEventListener("DOMContentLoaded", () => {
   initVideoScrollEffect();
   initServiceScrollEffect();
+});
+
+let resizeTimeout;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    ScrollTrigger.refresh();
+  }, 200);
 });
