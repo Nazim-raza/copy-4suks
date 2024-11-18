@@ -10,12 +10,12 @@ function initVideoScrollEffect() {
       end: "top -100%",
       scrub: 2,
       pin: true,
-      duration: 0.5,
+      pinSpacing: true, // Ensure proper spacing
       invalidateOnRefresh: true, // Recalculates on refresh
     },
   });
 
-  var tl = gsap.timeline();
+  let tl = gsap.timeline();
   tl.to(".text-top", {
     opacity: 1,
     y: 250,
@@ -138,12 +138,18 @@ function initServiceScrollEffect() {
 document.addEventListener("DOMContentLoaded", () => {
   initVideoScrollEffect();
   initServiceScrollEffect();
-});
 
-let resizeTimeout;
-window.addEventListener("resize", () => {
-  clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(() => {
+  // Refresh GSAP on resize
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+  });
+
+  // Refresh GSAP on load to fix layout
+  window.addEventListener("load", () => {
     ScrollTrigger.refresh();
-  }, 200);
+  });
 });
