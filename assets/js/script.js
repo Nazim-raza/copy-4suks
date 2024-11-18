@@ -11,6 +11,7 @@ function initVideoScrollEffect() {
       scrub: 2,
       pin: true,
       duration: 0.5,
+      invalidateOnRefresh: true, // Recalculates on refresh
     },
   });
 
@@ -132,6 +133,10 @@ function initServiceScrollEffect() {
     "<"
   );
 }
+
+window.addEventListener("resize", () => {
+  ScrollTrigger.refresh();
+});
 
 // Initialize both functionalities
 document.addEventListener("DOMContentLoaded", () => {
